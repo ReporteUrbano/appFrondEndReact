@@ -22,7 +22,7 @@ const Dashboard = () => {
   const fetchOcorrencias = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8081/api/ocorrencias/all/${idUsuarioLogado}`,
+        `https://reporteurbanoapi.up.railway.app/api/ocorrencias/all/${idUsuarioLogado}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }

@@ -95,7 +95,7 @@ const NovaOcorrencia = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8081/api/ocorrencias",
+        "https://reporteurbanoapi.up.railway.app/api/ocorrencias",
         novaOcorrencia,
         { headers: { Authorization: `Bearer ${token}` } }
       );

@@ -69,7 +69,7 @@ function LocationMarkerWithOcorrencias({ somenteMinhas, categoriaFiltro }) {
   useEffect(() => {
     const fetchOcorrencias = async () => {
       try {
-        const response = await axios.get("http://localhost:8081/api/ocorrencias", {
+        const response = await axios.get("https://reporteurbanoapi.up.railway.app/api/ocorrencias", {
           headers: { Authorization: `Bearer ${token}` },
         });
         //seta a variavel de ocorrencias para a resposta

@@ -17,7 +17,7 @@ const Cadastro = () => {
     setIsLoading(true); //  Mostra o loading
 
     try {
-      const response = await fetch("http://localhost:8081/auth/register", {
+      const response = await fetch("https://reporteurbanoapi.up.railway.app/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ nome, cpf, cep, genero }),
