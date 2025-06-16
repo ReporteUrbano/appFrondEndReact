@@ -1,62 +1,59 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import "./Login.css";  // <- Importa o CSS que criamos
 
 const Login = () => {
   const [cpf, setCpf] = useState("");
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false); // <- adicionado pelo colega
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-const handleLogin = async (e) => {
-  e.preventDefault();
-  setError("");
-  setLoading(true);
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
 
-  try {
-    const response = await fetch("https://reporteurbanoapi.up.railway.app/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ cpf }),
-    });
+    try {
+      const response = await fetch("https://reporteurbanoapi.up.railway.app/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ cpf }),
+      });
 
-    const contentType = response.headers.get("content-type");
+      const contentType = response.headers.get("content-type");
 
-    if (!response.ok) {
-      // Tenta extrair mensagem de erro da resposta, se for JSON
-      if (contentType && contentType.includes("application/json")) {
-        const errorData = await response.json();
-        setError(errorData.message || errorData.error || "Erro ao fazer login");
-      } else {
-        setError("Usuário não encontrado ou erro inesperado.");
+      if (!response.ok) {
+        if (contentType && contentType.includes("application/json")) {
+          const errorData = await response.json();
+          setError(errorData.message || errorData.error || "Erro ao fazer login");
+        } else {
+          setError("Usuário não encontrado ou erro inesperado.");
+        }
+        return;
       }
-      return;
+
+      const data = await response.json();
+      localStorage.setItem("userId", data.userId);
+      localStorage.setItem("token", data.token);
+      navigate("/dashboard");
+    } catch (err) {
+      console.error("Erro de rede ou servidor:", err);
+      setError("Erro de conexão com o servidor");
+    } finally {
+      setLoading(false);
     }
-
-    // Sucesso
-    const data = await response.json();
-    localStorage.setItem("userId", data.userId);
-    localStorage.setItem("token", data.token);
-    navigate("/dashboard");
-  } catch (err) {
-    console.error("Erro de rede ou servidor:", err);
-    setError("Erro de conexão com o servidor");
-  } finally {
-    setLoading(false);
-  }
-};
-
+  };
 
   return (
-    <div className="container d-flex flex-column justify-content-center align-items-center min-vh-100 bg-light px-4">
-      <img 
+    <div className="container d-flex flex-column justify-content-center align-items-center min-vh-100 bg-light px-4 login-container">
+      <img
         src={"/leaflet-icons/LogoReporteUrbano.jpeg"}
-        style={{
-          width: "75%",
-          height: "75%",
-          marginBottom: "15%"
-        }} />
+        className="img-fluid login-logo"
+        style={{ width: "75%", height: "auto", marginBottom: "15%" }}
+        alt="Logo"
+      />
 
-      <form className="w-100" style={{ maxWidth: "400px" }} onSubmit={handleLogin}>
+      <form className="w-100 login-form" onSubmit={handleLogin}>
         <div className="mb-3">
           <input
             type="text"
@@ -74,7 +71,9 @@ const handleLogin = async (e) => {
       </form>
 
       {error && (
-        <div className="alert alert-danger mt-3 w-100 text-center">{error}</div>
+        <div className="alert alert-danger mt-3 w-100 text-center login-error">
+          {error}
+        </div>
       )}
 
       <p className="mt-3 text-muted text-center">

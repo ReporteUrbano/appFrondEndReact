@@ -47,7 +47,7 @@ const Cadastro = () => {
 
   return (
     <div className="container d-flex flex-column justify-content-center align-items-center min-vh-100 bg-light px-4">
-      <h1 className="mb-4 text-success text-center">Cadastro - ReporteUrbano</h1>
+      <h1 className="mb-4 text-success text-center">Cadastro</h1>
 
       <form className="w-100" style={{ maxWidth: "400px" }} onSubmit={handleCadastro}>
         <div className="mb-3">
