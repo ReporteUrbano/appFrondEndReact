@@ -48,7 +48,13 @@ const handleLogin = async (e) => {
 
   return (
     <div className="container d-flex flex-column justify-content-center align-items-center min-vh-100 bg-light px-4">
-      <h1 className="mb-4 text-success text-center">ReporteUrbano</h1>
+      <img 
+        src={"../leaflet-icons/LogoReporteUrbano.jpeg"}
+        style={{
+          width: "75%",
+          height: "75%",
+          marginBottom: "15%"
+        }} />
 
       <form className="w-100" style={{ maxWidth: "400px" }} onSubmit={handleLogin}>
         <div className="mb-3">
