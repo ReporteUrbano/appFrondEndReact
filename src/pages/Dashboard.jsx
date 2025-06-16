@@ -50,7 +50,7 @@ const Dashboard = () => {
         if (confirm.isConfirmed) {
             try {
                 await axios.delete(
-                    `http://localhost:8081/api/ocorrencias/${idOcorrencia}`,
+                    `https://reporteurbanoapi.up.railway.app/api/ocorrencias/${idOcorrencia}`,
                     {
                         headers: { Authorization: `Bearer ${token}` },
                     }
