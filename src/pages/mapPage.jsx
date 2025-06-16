@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 // Corrige o bug do ícone padrão do Leaflet
 delete L.Icon.Default.prototype._getIconUrl;
 
-const iconBaseUrl = "../leaflet-icons/";
+const iconBaseUrl = "/leaflet-icons/";
 
 const iconMap = {
   "Trânsito e Acidentes": "marker-icon-red.png",

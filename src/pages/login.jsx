@@ -49,7 +49,7 @@ const handleLogin = async (e) => {
   return (
     <div className="container d-flex flex-column justify-content-center align-items-center min-vh-100 bg-light px-4">
       <img 
-        src={"../leaflet-icons/LogoReporteUrbano.jpeg"}
+        src={"/leaflet-icons/LogoReporteUrbano.jpeg"}
         style={{
           width: "75%",
           height: "75%",
