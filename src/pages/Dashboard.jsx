@@ -141,7 +141,7 @@ const Dashboard = () => {
 
       <button
             className="btn btn-success rounded-circle position-fixed"
-            style={{bottom: "60px", right: "20px", width: "60px", height: "60px", background: "gray"}}
+            style={{bottom: "80px", right: "20px", width: "60px", height: "60px", background: "gray"}}
         onClick={showMembers}
       >
         <People size={30} color="white" />
