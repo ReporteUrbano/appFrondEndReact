@@ -1,0 +1,18 @@
+
+/* Ajustes adicionais desktop */
+@media (min-width: 768px) {
+  .login-container {
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+
+  .login-logo {
+    max-width: 200px;
+    margin-bottom: 30px;
+  }
+
+  .login-form,
+  .login-error {
+    max-width: 300px;
+  }
+}
