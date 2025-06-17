@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import { Plus, Map, Trash } from "react-bootstrap-icons"; // Instale com: npm install react-bootstrap-icons
+import { Plus, Map, Trash , People} from "react-bootstrap-icons"; // Instale com: npm install react-bootstrap-icons
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -31,6 +31,14 @@ const Dashboard = () => {
     } catch (error) {
       console.error("Erro ao buscar ocorrências:", error);
     }
+  };
+
+  const showMembers = async () => {
+    const members = await Swal.fire({
+            title: "Quem somos?",
+            text: "Somos um grupo de estudantes do curso de Engenharia de Software da faculdade UNICESUMAR que desenvolveu este projeto como parte de um trabalho da faculdade. Nosso objetivo é contribuir para a melhoria da qualidade de vida urbana, facilitando a comunicação entre cidadãos e autoridades locais. Se quiser entrar em contato conosco, pode nos acionar pelo número: +55 44 991219112",
+            icon: "question"
+        });
   };
 
     const delOcorrencia = async (idOcorrencia) => {
@@ -129,6 +137,14 @@ const Dashboard = () => {
         onClick={() => navigate("/nova-ocorrencia")}
       >
         <Plus size={30} color="white" />
+      </button>
+
+      <button
+            className="btn btn-success rounded-circle position-fixed"
+            style={{bottom: "0px", right: "20px", width: "60px", height: "60px" }}
+        onClick={showMembers}
+      >
+        <People size={30} color="white" />
       </button>
 
       {/* Botão flutuante Mapa */}
