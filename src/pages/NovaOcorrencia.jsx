@@ -8,12 +8,22 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useLoading } from "../context/LoadingContext"; // IMPORTAÇÃO DO CONTEXTO
 
-// Corrigindo o ícone do Leaflet
+// Corrigindo o ícone padrão do Leaflet
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
   iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
   shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+});
+
+// Ícone customizado para o usuário
+const userIcon = new L.Icon({
+  iconUrl: "https://cdn-icons-png.flaticon.com/512/149/149071.png",
+  iconSize: [40, 40],
+  iconAnchor: [16, 32],
+  popupAnchor: [0, -32],
+  shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+  shadowSize: [41, 41],
 });
 
 const ClickableMap = ({ setLocalizacao, userPosition }) => {
@@ -25,7 +35,7 @@ const ClickableMap = ({ setLocalizacao, userPosition }) => {
   });
 
   return userPosition && (
-    <Marker position={userPosition}>
+    <Marker position={userPosition} icon={userIcon}>
       <Popup>Você está aqui</Popup>
     </Marker>
   );
@@ -34,7 +44,7 @@ const ClickableMap = ({ setLocalizacao, userPosition }) => {
 const NovaOcorrencia = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
-  const { setIsLoading } = useLoading(); // Hook do loading
+  const { setIsLoading } = useLoading();
 
   const [userId, setUserId] = useState(localStorage.getItem("userId"));
   const [tituloProblema, setTituloProblema] = useState("");
@@ -71,7 +81,7 @@ const NovaOcorrencia = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true); // ⏳ Mostra o loading
+    setIsLoading(true);
 
     let coords = localizacao;
     if (!coords) {
@@ -108,13 +118,12 @@ const NovaOcorrencia = () => {
       setLocalizacao("");
       setFoto("");
 
-      //confirmação que criou
       Swal.fire("Sucesso!", "A ocorrência foi criada com sucesso.", "success");
     } catch (error) {
       console.error("Erro ao criar ocorrência:", error);
       setMensagem("Erro ao criar ocorrência.");
     } finally {
-      setIsLoading(false); // ✅ Esconde o loading
+      setIsLoading(false);
     }
   };
 
@@ -122,6 +131,9 @@ const NovaOcorrencia = () => {
     <div className="container d-flex justify-content-center align-items-center flex-column py-4">
       <div className="col-lg-8 col-md-10 col-sm-12">
         <h2 className="mb-4 text-center">Nova Ocorrência</h2>
+        <p className="text-center text-muted mb-4" style={{ fontSize: "1.2rem" }}>
+          <i>*Preencha todos os campos</i>
+        </p>
 
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
@@ -187,6 +199,7 @@ const NovaOcorrencia = () => {
               accept="image/*"
               onChange={handleFileChange}
               className="form-control"
+              required
             />
           </div>
 
