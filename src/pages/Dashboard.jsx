@@ -3,10 +3,12 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { Plus, Map, Trash , People} from "react-bootstrap-icons"; // Instale com: npm install react-bootstrap-icons
+import { useLoading } from "../context/LoadingContext";
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const [ocorrencias, setOcorrencias] = useState([]);
+  const { setIsLoading } = useLoading();
 
   const idUsuarioLogado = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
@@ -20,6 +22,7 @@ const Dashboard = () => {
   }, [navigate]);
 
   const fetchOcorrencias = async () => {
+    setIsLoading(true);
     try {
       const response = await axios.get(
         `https://reporteurbanoapi.up.railway.app/api/ocorrencias/all/${idUsuarioLogado}`,
@@ -30,6 +33,8 @@ const Dashboard = () => {
       setOcorrencias(response.data);
     } catch (error) {
       console.error("Erro ao buscar ocorrências:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
