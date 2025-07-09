@@ -33,14 +33,6 @@ const Dashboard = () => {
     }
   };
 
-  const showMembers = async () => {
-    const members = await Swal.fire({
-            title: "Quem somos?",
-            text: "Somos um grupo de estudantes do curso de Engenharia de Software da faculdade UNICESUMAR que desenvolveu este projeto como parte de um trabalho da faculdade. Nosso objetivo é contribuir para a melhoria da qualidade de vida urbana, facilitando a comunicação entre cidadãos e autoridades locais. Se quiser entrar em contato conosco, pode nos acionar pelo número: +55 44 991219112",
-            icon: "question"
-        });
-  };
-
     const delOcorrencia = async (idOcorrencia) => {
         //cria um popup de confirmação para o usuário
         const confirm = await Swal.fire({
@@ -139,13 +131,20 @@ const Dashboard = () => {
         <Plus size={30} color="white" />
       </button>
 
-      <button
-            className="btn btn-success rounded-circle position-fixed"
-            style={{bottom: "80px", right: "20px", width: "60px", height: "60px", background: "gray"}}
-        onClick={showMembers}
-      >
-        <People size={30} color="white" />
-      </button>
+<button
+  className="btn btn-secondary rounded-circle position-fixed"
+  style={{
+    bottom: "80px",
+    right: "20px",
+    width: "60px",
+    height: "60px",
+  }}
+  onClick={() => navigate("/about")}
+  title="Sobre o Projeto"
+>
+  <People size={28} color="white" />
+</button>
+
 
       {/* Botão flutuante Mapa */}
       <button
