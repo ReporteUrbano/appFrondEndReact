@@ -4,6 +4,7 @@ import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import { useLoading } from "../context/LoadingContext";
 
 // Corrige o bug do ícone padrão do Leaflet
 delete L.Icon.Default.prototype._getIconUrl;
@@ -48,6 +49,7 @@ function LocationMarkerWithOcorrencias({ somenteMinhas, categoriaFiltro }) {
   const navigate = useNavigate();
   const [position, setPosition] = useState(null);
   const [ocorrencias, setOcorrencias] = useState([]);
+  const { setIsLoading } = useLoading();
   const map = useMap();
   const token = localStorage.getItem("token");
   const idUsuarioLogado = parseInt(localStorage.getItem("userId"));
@@ -68,6 +70,7 @@ function LocationMarkerWithOcorrencias({ somenteMinhas, categoriaFiltro }) {
   //manda um post para pegar todas as correncias
   useEffect(() => {
     const fetchOcorrencias = async () => {
+      setIsLoading(true);
       try {
         const response = await axios.get("https://reporteurbanoapi.up.railway.app/api/ocorrencias", {
           headers: { Authorization: `Bearer ${token}` },
@@ -76,6 +79,8 @@ function LocationMarkerWithOcorrencias({ somenteMinhas, categoriaFiltro }) {
         setOcorrencias(response.data);
       } catch (error) {
         console.error("Erro ao buscar ocorrências:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
